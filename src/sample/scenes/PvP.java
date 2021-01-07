@@ -1,23 +1,26 @@
 package sample.scenes;
 
 import sample.*;
+import sample.enums.Giocatore;
 import sample.net.Net;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class PvP extends BaseScene {
-	private final Timer timer = new Timer(1000, (ActionEvent e) -> { Net.checkMossa(); });
+	private final Timer timer = new Timer(1000, (ActionEvent e) -> Net.checkMossa());
 	
 	public PvP(){
 		super();
 		
-		timer.start();
+		if(Main.giocatore.equals(Giocatore.NERO))
+			timer.start();
 	}
 	
 	@Override
 	public void close(){
-		timer.stop();
+		if(timer.isRunning())
+			timer.stop();
 	}
 	
 	@Override
@@ -70,6 +73,7 @@ public class PvP extends BaseScene {
 				BaseScene.playerTurn = false;
 				
 				Net.scriviSuWeb(Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga, casella.getPezzo().getTipoPezzo());
+				timer.start();
 				
 				BaseScene.calcMinacce();
 			}

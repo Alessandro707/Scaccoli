@@ -113,8 +113,6 @@ public interface Net {
 							daY, Colonna.valueOf(dest.charAt(0) + ""), aY);
 					PvP.mosse.add(m);
 					
-					System.out.println(m.getStartX().toString() + " " + m.getStartY() + " -> " + m.getDestX().toString() + " " + m.getDestY());
-					
 					Runnable runnable = () -> {
 						if(PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo() != null)
 							PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo().mangiato = true;

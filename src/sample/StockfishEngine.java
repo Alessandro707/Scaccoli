@@ -1,16 +1,13 @@
 package sample;
 
 import javafx.application.Platform;
-import org.intellij.lang.annotations.RegExp;
 import sample.enums.Colonna;
-import sample.scenes.BaseScene;
+import sample.scenes.EntryPoint;
 import sample.scenes.PvE;
 
 import java.io.*;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Stream;
 
 public class StockfishEngine {
 	private static StockfishEngine instance;
@@ -19,10 +16,22 @@ public class StockfishEngine {
 	private BufferedReader eReader;
 	private BufferedWriter eWriter;
 	
+	private static String path;
 	
 	private StockfishEngine(){
 		try {
-			this.engine = new ProcessBuilder("C:\\Users\\bosch\\Documents\\AAA-Informatica\\AAA-IntelliJIdea\\Scaccoli\\src\\engine\\stockfish.exe").start();
+			BufferedReader reader = new BufferedReader(new FileReader("res/StockfishPath.txt"));
+			StockfishEngine.path = reader.readLine();
+			if(StockfishEngine.path == null || StockfishEngine.path.equals("")) {
+				StockfishPathInputGUI gui = new StockfishPathInputGUI();
+				EntryPoint.scene.getChildren().add(gui);
+				
+				while(!gui.shouldClose){
+				
+				}
+			}
+			
+			this.engine = new ProcessBuilder(StockfishEngine.path).start();
 			this.eReader = new BufferedReader(new InputStreamReader(engine.getInputStream()));
 			this.eWriter = new BufferedWriter(new OutputStreamWriter(engine.getOutputStream()));
 		} catch (IOException ioException) {
@@ -68,7 +77,7 @@ public class StockfishEngine {
 			@Override
 			public void run() {
 				
-				String line = "";
+				String line;
 				String[] mossa = new String[0];
 				
 				while(true){
@@ -116,5 +125,9 @@ public class StockfishEngine {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void setPath(String path){
+		StockfishEngine.path = path;
 	}
 }

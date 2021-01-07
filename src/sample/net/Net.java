@@ -116,10 +116,14 @@ public interface Net {
 					System.out.println(m.getStartX().toString() + " " + m.getStartY() + " -> " + m.getDestX().toString() + " " + m.getDestY());
 					
 					Runnable runnable = () -> {
-						PvP.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(m.getPezzo());
+						if(PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo() != null)
+							PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo().mangiato = true;
+						
+						PvP.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(PvP.caselle[m.getStartY()][m.getStartX().ordinal()].getPezzo());
 						PvP.caselle[m.getStartY()][m.getStartX().ordinal()].setPezzo(null);
 						EntryPoint.scene.close();
 						BaseScene.playerTurn = true;
+						BaseScene.calcMinacce();
 					};
 					
 					Platform.runLater(runnable);

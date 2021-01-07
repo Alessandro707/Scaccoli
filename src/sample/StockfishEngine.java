@@ -29,12 +29,18 @@ public class StockfishEngine {
 				while(!gui.shouldClose){
 				
 				}
+				BufferedWriter writer = new BufferedWriter(new FileWriter("res/StockfishPath.tat"));
+				writer.write(StockfishEngine.path);
+				writer.flush();
+				writer.close();
 			}
+			reader.close();
 			
 			this.engine = new ProcessBuilder(StockfishEngine.path).start();
 			this.eReader = new BufferedReader(new InputStreamReader(engine.getInputStream()));
 			this.eWriter = new BufferedWriter(new OutputStreamWriter(engine.getOutputStream()));
 		} catch (IOException ioException) {
+			StockfishEngine.path = "";
 			ioException.printStackTrace();
 		}
 	}

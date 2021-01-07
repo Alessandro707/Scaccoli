@@ -119,6 +119,7 @@ public interface Net {
 						PvP.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(m.getPezzo());
 						PvP.caselle[m.getStartY()][m.getStartX().ordinal()].setPezzo(null);
 						EntryPoint.scene.close();
+						BaseScene.playerTurn = true;
 					};
 					
 					Platform.runLater(runnable);

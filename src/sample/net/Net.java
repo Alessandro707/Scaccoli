@@ -1,5 +1,6 @@
 package sample.net;
 
+import javafx.application.Platform;
 import sample.Main;
 
 import java.io.*;
@@ -17,6 +18,7 @@ import org.json.simple.parser.*;
 import sample.Mossa;
 import sample.enums.Colonna;
 import sample.enums.TipoPezzo;
+import sample.scenes.PvE;
 import sample.scenes.PvP;
 
 public interface Net {
@@ -111,10 +113,12 @@ public interface Net {
 					
 					System.out.println(m.getStartX().toString() + " " + m.getStartY() + " -> " + m.getDestX().toString() + " " + m.getDestY());
 					
-					PvP.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(m.getPezzo());
-					PvP.caselle[m.getStartY()][m.getStartX().ordinal()].setPezzo(null);
+					Runnable runnable = () -> {
+						PvP.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(m.getPezzo());
+						PvP.caselle[m.getStartY()][m.getStartX().ordinal()].setPezzo(null);
+					};
 					
-					PvP.playerTurn = true;
+					Platform.runLater(runnable);
 				}
 			}
 		} catch (Exception e){

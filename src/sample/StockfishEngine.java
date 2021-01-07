@@ -16,31 +16,19 @@ public class StockfishEngine {
 	private BufferedReader eReader;
 	private BufferedWriter eWriter;
 	
-	private static String path;
+	private static String path = null;
 	
 	private StockfishEngine(){
+		if(StockfishEngine.path == null && StockfishEngine.ReadPath() == null) {
+			System.out.println("PERCORSO STOCKFISH NON SPECIFICATO");
+			return;
+		}
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader("res/StockfishPath.txt"));
-			StockfishEngine.path = reader.readLine();
-			if(StockfishEngine.path == null || StockfishEngine.path.equals("")) {
-				StockfishPathInputGUI gui = new StockfishPathInputGUI();
-				EntryPoint.scene.getChildren().add(gui);
-				
-				while(!gui.shouldClose){
-				
-				}
-				BufferedWriter writer = new BufferedWriter(new FileWriter("res/StockfishPath.tat"));
-				writer.write(StockfishEngine.path);
-				writer.flush();
-				writer.close();
-			}
-			reader.close();
-			
 			this.engine = new ProcessBuilder(StockfishEngine.path).start();
 			this.eReader = new BufferedReader(new InputStreamReader(engine.getInputStream()));
 			this.eWriter = new BufferedWriter(new OutputStreamWriter(engine.getOutputStream()));
 		} catch (IOException ioException) {
-			StockfishEngine.path = "";
+			StockfishEngine.path = null;
 			ioException.printStackTrace();
 		}
 	}
@@ -124,6 +112,10 @@ public class StockfishEngine {
 	}
 	
 	public static void close(){
+		if(StockfishEngine.path == null) {
+			System.out.println("Percorso stockfish non specificato");
+			return;
+		}
 		try {
 			StockfishEngine.get().eWriter.close();
 			StockfishEngine.get().eReader.close();
@@ -135,5 +127,27 @@ public class StockfishEngine {
 	
 	public static void setPath(String path){
 		StockfishEngine.path = path;
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/res/StockfishPath.txt"));
+			writer.write(StockfishEngine.path);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public static String getPath(){
+		return StockfishEngine.path;
+	}
+	
+	public static String ReadPath(){
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("src/res/StockfishPath.txt"));
+			StockfishEngine.path = reader.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return StockfishEngine.path;
 	}
 }

@@ -4,11 +4,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
+import javafx.scene.text.Text;
 import sample.Casella;
+import sample.StockfishEngine;
 import sample.forme.Switch;
 import sample.enums.Giocatore;
 import sample.Main;
@@ -16,6 +21,7 @@ import sample.Main;
 public class EntryPoint extends Group {
 	public static boolean pveOn = false;
 	public static BaseScene scene;
+	private boolean percorsoEngine = false;
 	
 	public EntryPoint(){
 		Switch sw = new Switch();
@@ -36,7 +42,7 @@ public class EntryPoint extends Group {
 		
 		b1.setOnMouseClicked((MouseEvent e) -> {
 			Main.giocatore = Giocatore.BIANCO;
-			if(pveOn){
+			if(pveOn && percorsoEngine){
 				EntryPoint.scene = new PvE();
 				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.4, Casella.size * 8.4));
 			}
@@ -47,7 +53,7 @@ public class EntryPoint extends Group {
 		});
 		b2.setOnMouseClicked((MouseEvent e) -> {
 			Main.giocatore = Giocatore.NERO;
-			if(pveOn){
+			if(pveOn && percorsoEngine){
 				EntryPoint.scene = new PvE();
 				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.4, Casella.size * 8.4));
 			}
@@ -68,6 +74,30 @@ public class EntryPoint extends Group {
 		
 		this.getChildren().add(sw);
 		this.getChildren().add(box);
+		
+		TextField textField = new TextField();
+		textField.setFont(new Font(15));
+		textField.setMaxSize(500, 25);
+		textField.setMinSize(500, 25);
+		textField.setTranslateX(30);
+		textField.setTranslateY(100);
+		textField.setOnKeyPressed((KeyEvent e) -> {
+			if (e.getCode().equals(KeyCode.ENTER)) {
+				if (textField.getText() != null && !textField.getText().equals("")) {
+					StockfishEngine.setPath(textField.getText());
+					textField.setDisable(true);
+					this.percorsoEngine = true;
+				}
+			}
+		});
+		if(StockfishEngine.ReadPath() != null) {
+			textField.setText(StockfishEngine.getPath());
+			this.percorsoEngine = true;
+		}
+		else {
+			textField.setPromptText("inserisci percorso del motore scacchistico");
+		}
+		this.getChildren().add(textField);
 	}
 }
 

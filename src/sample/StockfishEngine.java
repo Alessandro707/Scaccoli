@@ -1,10 +1,13 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import sample.enums.Colonna;
 import sample.scenes.EntryPoint;
 import sample.scenes.PvE;
 
+import javax.sound.midi.Soundbank;
 import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;

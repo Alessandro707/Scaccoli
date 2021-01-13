@@ -20,7 +20,6 @@ import sample.enums.Colonna;
 import sample.enums.TipoPezzo;
 import sample.scenes.BaseScene;
 import sample.scenes.EntryPoint;
-import sample.scenes.PvE;
 import sample.scenes.PvP;
 
 public interface Net {

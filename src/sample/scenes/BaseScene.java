@@ -1,9 +1,7 @@
 package sample.scenes;
 
-import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -16,7 +14,6 @@ import sample.enums.Colore;
 import sample.enums.Giocatore;
 import sample.enums.TipoPezzo;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class BaseScene extends StackPane {

@@ -118,7 +118,7 @@ public class BaseScene extends StackPane {
 			p.setCanGo();
 			
 			// TODO: bene tutto ma non considero la possibilità di mangiare l'aggressore o pezzi inchiodati
-			if(p.getColore().ordinal() == Main.giocatore.ordinal()) {
+			if(p.getColore().ordinal() != Main.giocatore.ordinal()) {
 				for (Casella c : p.getCanGo()) {
 					if (c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
 							!c.getPezzo().getColore().equals(p.getColore())) {
@@ -213,7 +213,7 @@ public class BaseScene extends StackPane {
 			
 			Net.scriviSuWeb(BaseScene.re.colonna, BaseScene.re.riga, BaseScene.re.colonna, -1, TipoPezzo.RE);
 		}
-		if(reSottoScacco.getColore().ordinal() == Main.giocatore.ordinal()) {
+		if(reSottoScacco != null && reSottoScacco.getColore().ordinal() == Main.giocatore.ordinal()) {
 			BaseScene.re.getChildren().remove(re.contrno);
 			BaseScene.re.getChildren().add(re.contrno);
 		}

@@ -38,7 +38,7 @@ public class PvP extends BaseScene {
 			for(Casella c : Casella.lastCasella.getPezzo().getCanGo()){
 				if(c.getPezzo() == null && !c.getChildren().contains(c.dot))
 					c.getChildren().add(c.dot);
-				else if(!c.getChildren().contains(c.contrno))
+				else if(!c.getPezzo().getColore().equals(casella.getPezzo().getColore()) && !c.getChildren().contains(c.contrno))
 					c.getChildren().add(c.contrno);
 			}
 			
@@ -53,7 +53,7 @@ public class PvP extends BaseScene {
 				for (Casella c : Casella.lastCasella.getPezzo().getCanGo()) {
 					if (c.getPezzo() == null)
 						c.getChildren().remove(c.dot);
-					else
+					else if (!c.getPezzo().getColore().equals(Casella.lastCasella.getPezzo().getColore()))
 						c.getChildren().remove(c.contrno);
 				}
 				
@@ -71,6 +71,7 @@ public class PvP extends BaseScene {
 				Casella.lastCasella.setPezzo(null);
 				casella.getPezzo().onMove();
 				BaseScene.playerTurn = false;
+				BaseScene.playerTurn = true;
 				
 				Net.scriviSuWeb(Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga, casella.getPezzo().getTipoPezzo());
 				timer.start();

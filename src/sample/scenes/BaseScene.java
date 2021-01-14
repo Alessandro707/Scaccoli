@@ -13,6 +13,7 @@ import sample.enums.Colonna;
 import sample.enums.Colore;
 import sample.enums.Giocatore;
 import sample.enums.TipoPezzo;
+import sample.net.Net;
 
 import java.util.ArrayList;
 
@@ -95,7 +96,6 @@ public class BaseScene extends StackPane {
 		// ****************************************************
 		
 		for(int i = 0; i < 8; i++){
-
 			Text text1 = new Text("         " + (Main.giocatore.equals(Giocatore.BIANCO) ? Colonna.values()[i].toString() : Colonna.values()[7 - i].toString()));
 			text1.setFont(new Font(15));
 			text1.setTextAlignment(TextAlignment.CENTER);
@@ -111,6 +111,7 @@ public class BaseScene extends StackPane {
 	}
 	
 	public static void calcMinacce(){
+		Pezzo reSottoScacco = null;
 		for(Pezzo p : BaseScene.pezzi){
 			if(p.mangiato)
 				continue;
@@ -123,14 +124,19 @@ public class BaseScene extends StackPane {
 					
 					c.getChildren().add(c.contrno);
 					BaseScene.sottoScacco = true;
+					reSottoScacco = c.getPezzo();
 					break;
 				}
 			}
+			if(BaseScene.scaccoMatto)
+				continue;
 			for(Casella c : p.getMinacciaPedone()){
 				if(c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
 						!c.getPezzo().getColore().equals(p.getColore())) {
 					
+					c.getChildren().add(c.contrno);
 					BaseScene.sottoScacco = true;
+					reSottoScacco = c.getPezzo();
 					break;
 				}
 			}
@@ -138,6 +144,9 @@ public class BaseScene extends StackPane {
 		
 		if(!BaseScene.sottoScacco)
 			return;
+		if(reSottoScacco != null && reSottoScacco.getColore().ordinal() != Main.giocatore.ordinal())
+			return;
+		
 		boolean mate = true;
 		for(Pezzo p1 : BaseScene.pezzi){
 			if(p1.getColore().ordinal() != Main.giocatore.ordinal())
@@ -201,6 +210,8 @@ public class BaseScene extends StackPane {
 			text.setFont(new Font(40));
 			text.setFill(Color.RED);
 			EntryPoint.scene.getChildren().add(text);
+			
+			Net.scriviSuWeb(BaseScene.re.colonna, BaseScene.re.riga, BaseScene.re.colonna, -1, TipoPezzo.RE);
 		}
 		BaseScene.re.getChildren().remove(re.contrno);
 		BaseScene.re.getChildren().add(re.contrno);

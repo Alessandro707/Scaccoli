@@ -1,6 +1,10 @@
 package sample.net;
 
 import javafx.application.Platform;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import sample.Main;
 
 import java.io.*;
@@ -113,14 +117,24 @@ public interface Net {
 					PvP.mosse.add(m);
 					
 					Runnable runnable = () -> {
-						if(PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo() != null)
-							PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo().mangiato = true;
-						
-						PvP.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(PvP.caselle[m.getStartY()][m.getStartX().ordinal()].getPezzo());
-						PvP.caselle[m.getStartY()][m.getStartX().ordinal()].setPezzo(null);
-						EntryPoint.scene.close();
-						BaseScene.playerTurn = true;
-						BaseScene.calcMinacce();
+						if(aY < 0){
+							BaseScene.scaccoMatto = true;
+							Text text = new Text("SCACCO MATTACCHIONE");
+							text.setTextAlignment(TextAlignment.CENTER);
+							text.setFont(new Font(40));
+							text.setFill(Color.RED);
+							EntryPoint.scene.getChildren().add(text);
+						}
+						else {
+							if (PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo() != null)
+								PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo().mangiato = true;
+							
+							PvP.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(PvP.caselle[m.getStartY()][m.getStartX().ordinal()].getPezzo());
+							PvP.caselle[m.getStartY()][m.getStartX().ordinal()].setPezzo(null);
+							EntryPoint.scene.close();
+							BaseScene.playerTurn = true;
+							BaseScene.calcMinacce();
+						}
 					};
 					
 					Platform.runLater(runnable);

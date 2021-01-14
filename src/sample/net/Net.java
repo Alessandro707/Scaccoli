@@ -122,7 +122,7 @@ public interface Net {
 							Text text = new Text("SCACCO MATTACCHIONE");
 							text.setTextAlignment(TextAlignment.CENTER);
 							text.setFont(new Font(40));
-							text.setFill(Color.RED);
+							text.setFill(Color.GREEN);
 							EntryPoint.scene.getChildren().add(text);
 						}
 						else {

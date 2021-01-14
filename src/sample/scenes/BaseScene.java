@@ -118,26 +118,28 @@ public class BaseScene extends StackPane {
 			p.setCanGo();
 			
 			// TODO: bene tutto ma non considero la possibilità di mangiare l'aggressore o pezzi inchiodati
-			for(Casella c : p.getCanGo()){
-				if(c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
-						!c.getPezzo().getColore().equals(p.getColore())) {
-					
-					c.getChildren().add(c.contrno);
-					BaseScene.sottoScacco = true;
-					reSottoScacco = c.getPezzo();
-					break;
+			if(p.getColore().ordinal() == Main.giocatore.ordinal()) {
+				for (Casella c : p.getCanGo()) {
+					if (c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
+							!c.getPezzo().getColore().equals(p.getColore())) {
+						
+						c.getChildren().add(c.contrno);
+						BaseScene.sottoScacco = true;
+						reSottoScacco = c.getPezzo();
+						break;
+					}
 				}
-			}
-			if(BaseScene.scaccoMatto)
-				continue;
-			for(Casella c : p.getMinacciaPedone()){
-				if(c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
-						!c.getPezzo().getColore().equals(p.getColore())) {
-					
-					c.getChildren().add(c.contrno);
-					BaseScene.sottoScacco = true;
-					reSottoScacco = c.getPezzo();
-					break;
+				if (BaseScene.scaccoMatto)
+					continue;
+				for (Casella c : p.getMinacciaPedone()) {
+					if (c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
+							!c.getPezzo().getColore().equals(p.getColore())) {
+						
+						c.getChildren().add(c.contrno);
+						BaseScene.sottoScacco = true;
+						reSottoScacco = c.getPezzo();
+						break;
+					}
 				}
 			}
 		}

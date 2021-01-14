@@ -118,7 +118,7 @@ public class BaseScene extends StackPane {
 			p.setCanGo();
 			
 			// TODO: bene tutto ma non considero la possibilità di mangiare l'aggressore o pezzi inchiodati
-			if(p.getColore().ordinal() == Main.giocatore.ordinal()) {
+			//if(p.getColore().ordinal() == Main.giocatore.ordinal()) {
 				for (Casella c : p.getCanGo()) {
 					if (c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
 							!c.getPezzo().getColore().equals(p.getColore())) {
@@ -141,13 +141,13 @@ public class BaseScene extends StackPane {
 						break;
 					}
 				}
-			}
+			//}
 		}
 		
 		if(!BaseScene.sottoScacco)
 			return;
-		if(reSottoScacco != null && reSottoScacco.getColore().ordinal() != Main.giocatore.ordinal())
-			return;
+//		if(reSottoScacco != null && reSottoScacco.getColore().ordinal() != Main.giocatore.ordinal())
+//			return;
 		
 		boolean mate = true;
 		for(Pezzo p1 : BaseScene.pezzi){

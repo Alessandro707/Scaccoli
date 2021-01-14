@@ -81,7 +81,7 @@ public class PvP extends BaseScene {
 				for (Casella c : Casella.lastCasella.getPezzo().getCanGo()) {
 					if (c.getPezzo() == null)
 						c.getChildren().remove(c.dot);
-					else
+					else if (!c.getPezzo().getColore().equals(Casella.lastCasella.getPezzo().getColore()))
 						c.getChildren().remove(c.contrno);
 				}
 			

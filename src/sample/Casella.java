@@ -24,7 +24,7 @@ public class Casella extends StackPane {
 	public final Square contrno = new Square();
 	private Pezzo pezzo = null;
 	
-	public Text text = new Text(); //TODO: remove
+	//public Text text = new Text();
 	
 	public static Casella lastCasella = null;
 	
@@ -62,11 +62,11 @@ public class Casella extends StackPane {
 	
 	public void setPezzo(Pezzo pezzo){
 		this.getChildren().remove(this.pezzo);
-		this.getChildren().remove(this.text);
+		//this.getChildren().remove(this.text);
 		this.pezzo = pezzo;
 		
 		if(pezzo == null){
-			this.text.setText("");
+			//this.text.setText("");
 			return;
 		}
 		
@@ -75,9 +75,9 @@ public class Casella extends StackPane {
 		
 		//this.text.setText(this.pezzo.getTipoPezzo().toString());
 		//this.text.setText(this.colonna.toString() + this.riga);
-		this.text.setText(this.colonna.toString() + (this.riga + 1) + ": " + this.pezzo.getTipoPezzo().toString());
+		//this.text.setText(this.colonna.toString() + (this.riga + 1) + ": " + this.pezzo.getTipoPezzo().toString());
 		this.getChildren().add(this.pezzo); // ERROR: pezzo non è null, ne il getColore(), getChildren ha size 1, in ogni caso non adda il pezzo, pezzo di merda
-		this.getChildren().add(this.text);
+		//this.getChildren().add(this.text);
 		
 		if(this.pezzo.getColore().equals(Colore.BIANCO) && this.pezzo.getTipoPezzo().equals(TipoPezzo.RE))
 			BaseScene.re = this;

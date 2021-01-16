@@ -1,16 +1,13 @@
 package sample;
 
 import javafx.application.Platform;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import sample.enums.Colonna;
-import sample.scenes.EntryPoint;
 import sample.scenes.PvE;
 
-import javax.sound.midi.Soundbank;
 import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 public class StockfishEngine {
 	private static StockfishEngine instance;
@@ -27,7 +24,7 @@ public class StockfishEngine {
 			return;
 		}
 		try {
-			this.engine = new ProcessBuilder(StockfishEngine.path).start();
+			this.engine = new ProcessBuilder(path).start();
 			this.eReader = new BufferedReader(new InputStreamReader(engine.getInputStream()));
 			this.eWriter = new BufferedWriter(new OutputStreamWriter(engine.getOutputStream()));
 		} catch (IOException ioException) {

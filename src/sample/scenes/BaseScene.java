@@ -117,7 +117,7 @@ public class BaseScene extends StackPane {
 				continue;
 			p.setCanGo();
 			
-			// TODO: bene tutto ma non considero la possibilità di mangiare l'aggressore o pezzi inchiodati
+			// TODO: non considero la possibilità di mangiare l'aggressore
 			if(p.getColore().ordinal() != Main.giocatore.ordinal()) {
 				for (Casella c : p.getCanGo()) {
 					if (c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
@@ -160,6 +160,8 @@ public class BaseScene extends StackPane {
 				Pezzo dest = c1.getPezzo();
 				if(dest != null && dest.getColore().equals(p1.getColore()))
 					continue;
+				if(dest != null && !dest.getColore().equals(p1.getColore()))
+					c1.getPezzo().mangiato = true;
 				
 				c1.setPezzo(p1);
 				start.setPezzo(null);
@@ -186,6 +188,8 @@ public class BaseScene extends StackPane {
 					}
 				}
 				
+				if(dest != null)
+					dest.mangiato = false;
 				c1.setPezzo(dest);
 				start.setPezzo(p1);
 			}

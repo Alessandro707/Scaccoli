@@ -12,19 +12,19 @@ public class Pezzo extends ImageView {
 	public static final Image[][] imgs = new Image[][]{
 			new Image[]{
 				new Image("res/PB.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/AB.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/CB.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/TB.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/REGB.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/REB.jpg", Casella.size, Casella.size, true, true),
+				new Image("res/AlfiereB.png", Casella.size, Casella.size, true, true),
+				new Image("res/CavalloB.png", Casella.size, Casella.size, true, true),
+				new Image("res/TorreB.png", Casella.size, Casella.size, true, true),
+				new Image("res/ReginaB.png", Casella.size, Casella.size, true, true),
+				new Image("res/ReB.png", Casella.size, Casella.size, true, true),
 			},
 			new Image[]{
 				new Image("res/PN.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/AN.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/CN.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/TN.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/REGN.jpg", Casella.size, Casella.size, true, true),
-				new Image("res/REN.jpg", Casella.size, Casella.size, true, true),
+				new Image("res/AlfiereN.png", Casella.size, Casella.size, true, true),
+				new Image("res/CavalloN.png", Casella.size, Casella.size, true, true),
+				new Image("res/TorreN.png", Casella.size, Casella.size, true, true),
+				new Image("res/ReginaN.png", Casella.size, Casella.size, true, true),
+				new Image("res/ReN.png", Casella.size, Casella.size, true, true),
 			}
 	};
 	
@@ -38,6 +38,7 @@ public class Pezzo extends ImageView {
 	protected Pezzo(int x, int y){
 		this.x = x;
 		this.y = y;
+		
 	}
 	
 	public ArrayList<Casella> calcCanGo() {

@@ -71,6 +71,7 @@ public class PvP extends BaseScene {
 				Casella.lastCasella.setPezzo(null);
 				casella.getPezzo().onMove();
 				BaseScene.playerTurn = false;
+				BaseScene.playerTurn = true;
 				
 				Net.scriviSuWeb(Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga, casella.getPezzo().getTipoPezzo());
 				timer.start();

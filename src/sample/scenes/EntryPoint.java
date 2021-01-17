@@ -43,22 +43,22 @@ public class EntryPoint extends Group {
 			Main.giocatore = Giocatore.BIANCO;
 			if(pveOn && percorsoEngine){
 				EntryPoint.scene = new PvE();
-				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.4, Casella.size * 8.4));
+				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
 			}
 			else {
 				EntryPoint.scene = new PvP();
-				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.4, Casella.size * 8.4));
+				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
 			}
 		});
 		b2.setOnMouseClicked((MouseEvent e) -> {
 			Main.giocatore = Giocatore.NERO;
 			if(pveOn && percorsoEngine){
 				EntryPoint.scene = new PvE();
-				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.4, Casella.size * 8.4));
+				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
 			}
 			else {
 				EntryPoint.scene = new PvP();
-				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.4, Casella.size * 8.4));
+				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
 			}
 		});
 		
@@ -74,6 +74,7 @@ public class EntryPoint extends Group {
 		this.getChildren().add(sw);
 		this.getChildren().add(box);
 		
+		// per il percorso di Stockfish
 		TextField textField = new TextField();
 		textField.setFont(new Font(15));
 		textField.setMaxSize(500, 25);
@@ -89,7 +90,7 @@ public class EntryPoint extends Group {
 				}
 			}
 		});
-		if(StockfishEngine.ReadPath() != null) {
+		if(StockfishEngine.readPath() != null) {
 			textField.setText(StockfishEngine.getPath());
 			this.percorsoEngine = true;
 		}
@@ -97,6 +98,7 @@ public class EntryPoint extends Group {
 			textField.setPromptText("inserisci percorso del motore scacchistico");
 		}
 		this.getChildren().add(textField);
+		// ***************************
 	}
 }
 

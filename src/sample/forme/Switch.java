@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import sample.scenes.EntryPoint;
 
-// grazie Github per fornirmi interruttori esteticamente belle
+// preso da Github che non ho voglia di far la grafica e volevo sapere come si facessero gli interruttori in javafx
 public class Switch extends HBox {
 	private final Label label = new Label();
 	private final Button button = new Button();

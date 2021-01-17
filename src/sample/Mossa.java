@@ -6,8 +6,6 @@ import sample.enums.Colore;
 import sample.enums.TipoPezzo;
 import sample.scenes.PvE;
 
-import java.util.Locale;
-
 public class Mossa {
 	private final TipoPezzo tipoPezzo;
 	private final Pezzo pezzo;
@@ -32,6 +30,7 @@ public class Mossa {
 				this.destX.toString() + " " + (this.destY + 1) + ")";
 	}
 	
+	// formatto la stringa della mossa in modo comprensibile da Stockfish (per dirgli che la mossa è stata fatta)
 	public String toStockfish(){
 		String res = "position moves ";
 		

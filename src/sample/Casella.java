@@ -4,7 +4,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 import sample.Pezzi.Pezzo;
 import sample.enums.Colonna;
@@ -24,9 +23,7 @@ public class Casella extends StackPane {
 	public final Square contrno = new Square();
 	private Pezzo pezzo = null;
 	
-	//public Text text = new Text();
-	
-	public static Casella lastCasella = null;
+	public static Casella lastCasella = null; // ultima casella selezionata
 	
 	public Casella(int riga, int colonna){
 		this.riga = riga;
@@ -45,49 +42,36 @@ public class Casella extends StackPane {
 		
 		this.getChildren().add(this.bg);
 		
-		// Event handler
 		this.setOnMouseClicked((MouseEvent e)->{
-			//System.out.println(this.toString());
-			
-			if(!BaseScene.scaccoMatto)
+			if(!BaseScene.scaccoMatto) // se non è scacco matto chiamo la funzione che gestisce il click, che dipende se siamo in PvP o PvE
 				EntryPoint.scene.mouseCallback(this);
 		});
-		// *************
 	}
-
-
+	
 	public Pezzo getPezzo(){
 		return this.pezzo;
 	}
 	
+	// imposto il pezzo su questa casella, cambiando anche le coordinate del pezzo e
+	// se si tratta di un re specifico che il re è ora in questa casella
 	public void setPezzo(Pezzo pezzo){
 		this.getChildren().remove(this.pezzo);
-		//this.getChildren().remove(this.text);
 		this.pezzo = pezzo;
 		
 		if(pezzo == null){
-			//this.text.setText("");
 			return;
 		}
 		
 		pezzo.setPezzoX(this.colonna.ordinal());
 		pezzo.setPezzoY(this.riga);
 		
-		//this.text.setText(this.pezzo.getTipoPezzo().toString());
-		//this.text.setText(this.colonna.toString() + this.riga);
-		//this.text.setText(this.colonna.toString() + (this.riga + 1) + ": " + this.pezzo.getTipoPezzo().toString());
 		this.getChildren().add(this.pezzo); // ERROR: pezzo non è null, ne il getColore(), getChildren ha size 1, in ogni caso non adda il pezzo, pezzo di merda
-		//this.getChildren().add(this.text);
 		
-		if(this.pezzo.getColore().equals(Colore.BIANCO) && this.pezzo.getTipoPezzo().equals(TipoPezzo.RE))
+		if(this.pezzo.getColore().ordinal() == Main.giocatore.ordinal() && this.pezzo.getTipoPezzo().equals(TipoPezzo.RE))
 			BaseScene.re = this;
 	}
 	
-	@Override
-	public String toString() {
-		return this.getPezzo().toString();
-	}
-	
+	// debug
 	public String infoCasella(){
 		String res = "Minacce pedoniche: \n";
 		

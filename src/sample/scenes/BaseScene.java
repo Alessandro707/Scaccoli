@@ -17,6 +17,7 @@ import sample.net.Net;
 
 import java.util.ArrayList;
 
+//Classe che contine le informazioni in comune tra PvP e PvE (schacciera, turno, pezzi...)
 public class BaseScene extends StackPane {
 	public static final GridPane gridPane = new GridPane();
 	public static boolean playerTurn;
@@ -31,7 +32,7 @@ public class BaseScene extends StackPane {
 		BaseScene.playerTurn = Main.giocatore.equals(Giocatore.BIANCO);
 		int ind = 0;
 		
-		// instanziazione dei pezzi e assegnazione nel gridpane
+		// instanziazione dei pezzi e inserimento nel gridpane
 		for(int i = 0; i < 8; i++){
 			caselle[i] = new Casella[8];
 			for(int j = 0; j < 8; j++){
@@ -95,6 +96,7 @@ public class BaseScene extends StackPane {
 			BaseScene.re = caselle[7][4];
 		// ****************************************************
 		
+		// numeri delle righe e lettere delle colonne
 		for(int i = 0; i < 8; i++){
 			Text text1 = new Text("         " + (Main.giocatore.equals(Giocatore.BIANCO) ? Colonna.values()[i].toString() : Colonna.values()[7 - i].toString()));
 			text1.setFont(new Font(15));
@@ -110,6 +112,7 @@ public class BaseScene extends StackPane {
 		BaseScene.calcMinacce();
 	}
 	
+	// calcola dove può andare ogni pezzo, per sapere dove il giocatore può muovere o per sapere se si è sotto scacco
 	public static void calcMinacce(){
 		Pezzo reSottoScacco = null;
 		for(Pezzo p : BaseScene.pezzi){
@@ -117,21 +120,21 @@ public class BaseScene extends StackPane {
 				continue;
 			p.setCanGo();
 			
-			// TODO: non considero la possibilità di mangiare l'aggressore
+			// se il pezzo è nemico controllo se sta minacciando il mio re
 			if(p.getColore().ordinal() != Main.giocatore.ordinal()) {
 				for (Casella c : p.getCanGo()) {
 					if (c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
-							!c.getPezzo().getColore().equals(p.getColore())) {
+							!c.getPezzo().getColore().equals(p.getColore())) { // se il pezzo è nero mi interessa il re bianco e viceversa
 						
-						c.getChildren().add(c.contrno);
+						c.getChildren().add(c.contrno); // aggiungo un contorno rosse alla casella del mio re
 						BaseScene.sottoScacco = true;
 						reSottoScacco = c.getPezzo();
 						break;
 					}
 				}
-				if (BaseScene.scaccoMatto)
+				if (BaseScene.sottoScacco)
 					continue;
-				for (Casella c : p.getMinacciaPedone()) {
+				for (Casella c : p.getMinacciaPedone()) { // i pedoni minacciano di lato ma non ci possono "andare"
 					if (c.getPezzo() != null && c.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
 							!c.getPezzo().getColore().equals(p.getColore())) {
 						
@@ -147,42 +150,44 @@ public class BaseScene extends StackPane {
 		if(!BaseScene.sottoScacco)
 			return;
 		
+		// se il re è sotto scacco devo controllare quali delle possibili (da comportamento del pezzo) mosse sono effettivamente accettabili
 		boolean mate = true;
-		for(Pezzo p1 : BaseScene.pezzi){
+		for(Pezzo p1 : BaseScene.pezzi){ // per ogni pezzo alleato
 			if(p1.getColore().ordinal() != Main.giocatore.ordinal())
 				continue;
-			if(p1.mangiato)
+			if(p1.mangiato) // ancora in game
 				continue;
 			
 			ArrayList<Casella> toRemove = new ArrayList<>();
 			Casella start = BaseScene.caselle[p1.getPezzoY()][p1.getPezzoX()];
-			for(Casella c1 : p1.getCanGo()){
+			for(Casella c1 : p1.getCanGo()){ // per ogni casella in cui può andare ipotizzo che ci vada e vedo se il re è ancora sotto scacco
 				Pezzo dest = c1.getPezzo();
-				if(dest != null && dest.getColore().equals(p1.getColore()))
+				if(dest != null && dest.getColore().equals(p1.getColore())) // se nella destinazione c'è un pezzo alleato la ignoro
 					continue;
-				if(dest != null && !dest.getColore().equals(p1.getColore()))
+				if(dest != null && !dest.getColore().equals(p1.getColore())) // se c'era un pezzo poi mi ricordo di rimettercelo
 					c1.getPezzo().mangiato = true;
 				
 				c1.setPezzo(p1);
 				start.setPezzo(null);
 				
-				for(Pezzo p2 : BaseScene.pezzi){
+				for(Pezzo p2 : BaseScene.pezzi){ // per ogni pezzo nemico
 					if(p2.getColore().ordinal() == Main.giocatore.ordinal())
 						continue;
-					if(p2.mangiato)
+					if(p2.mangiato) // ancora in game
 						continue;
 					
+					// prendo l'elenco delle caselle in cui può andare, senza dire al pezzo di salvarsi l'array
 					ArrayList<Casella> nuovoCanGO = p2.calcCanGo();
 					
 					boolean flag = false;
-					for(Casella c2 : nuovoCanGO){
+					for(Casella c2 : nuovoCanGO){ // per tutte le caselle in cui può andare cerco se c'è il mio re
 						if(c2.getPezzo() != null && c2.getPezzo().getTipoPezzo().equals(TipoPezzo.RE) &&
 								c2.getPezzo().getColore().equals(p1.getColore())){
 							flag = true;
 							break;
 						}
 					}
-					if(flag) {
+					if(flag) { // se il re è ancora minacciato devo togliere questa mossa del mio pezzo da quelle che può fare
 						toRemove.add(c1);
 						break;
 					}
@@ -193,12 +198,12 @@ public class BaseScene extends StackPane {
 				c1.setPezzo(dest);
 				start.setPezzo(p1);
 			}
-			for(Casella c : toRemove)
+			for(Casella c : toRemove) // rimuvo le caselle in cui non può andare
 				p1.getCanGo().remove(c);
 			toRemove.clear();
 			
 			boolean flag = false;
-			for(Casella c : p1.getCanGo()){
+			for(Casella c : p1.getCanGo()){ // se l'array delle caselle in cui può andare contiene una casella effettivamente valida non è matto
 				if(c.getPezzo() == null || !c.getPezzo().getColore().equals(p1.getColore())) {
 					flag = true;
 					break;
@@ -215,15 +220,16 @@ public class BaseScene extends StackPane {
 			text.setFill(Color.RED);
 			EntryPoint.scene.getChildren().add(text);
 			
+			// dico al server che ho perso
 			Net.scriviSuWeb(BaseScene.re.colonna, BaseScene.re.riga, BaseScene.re.colonna, -1, TipoPezzo.RE);
 		}
 		if(reSottoScacco != null && reSottoScacco.getColore().ordinal() == Main.giocatore.ordinal()) {
-			BaseScene.re.getChildren().remove(re.contrno);
+			BaseScene.re.getChildren().remove(re.contrno); // si buggava il contorno quindi lo toglo e lo rimetto così torna sopra
 			BaseScene.re.getChildren().add(re.contrno);
 		}
 	}
 	
-	public void mouseCallback(Casella casella){}
+	public void mouseCallback(Casella casella) {}
 	
-	public void close(){}
+	public void close() {}
 }

@@ -21,6 +21,7 @@ public class Cavallo extends Pezzo {
 	public ArrayList<Casella> calcCanGo() {
 		ArrayList<Casella> res = new ArrayList<>();
 		
+		// cavallo best pezzo ever
 		if(this.getPezzoY() - 2 >= 0 && this.getPezzoX() - 1 >= 0)
 			res.add(BaseScene.caselle[this.getPezzoY() - 2][this.getPezzoX() - 1]);
 		if(this.getPezzoY() - 2 >= 0 && this.getPezzoX() + 1 < 8)

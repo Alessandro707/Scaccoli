@@ -10,7 +10,6 @@ import sample.scenes.EntryPoint;
 
 import java.util.ArrayList;
 
-
 public class Pedone extends Pezzo {
 	
 	public Pedone(@NotNull Colore colore, int x, int y){
@@ -26,8 +25,10 @@ public class Pedone extends Pezzo {
 		
 		this.getMinacciaPedone().clear();
 		
-		int v = -1;
-		int v2 = 6;
+		// variabili per dire se il pezzo si muove verso l'alto o il basso (relativamente alla matrice di
+		// caselle, non al modo in cui vengono visualizzate)
+		int v = -1; // per semplice movimento
+		int v2 = 6; // per avanzamento di 2 alla prima mossa (TODO: sostituire con Pezzo.moved)
 		if(this.getColore().equals(Colore.BIANCO)) {
 			v = 1;
 			v2 = 1;
@@ -56,26 +57,8 @@ public class Pedone extends Pezzo {
 	}
 	
 	@Override
-	public ArrayList<Casella> calcMinaccePedone(){
-		ArrayList<Casella> res = new ArrayList<>();
-		
-		int v = -1;
-		if(this.getColore().equals(Colore.BIANCO)) {
-			v = 1;
-		}
-		if(this.getPezzoY() + v >= 8 || this.getPezzoY() + v < 0)
-			return null;
-		
-		if (this.getPezzoX() - 1 >= 0)
-			res.add(BaseScene.caselle[this.getPezzoY() + v][this.getPezzoX() - 1]);
-		else if (this.getPezzoX() + 1 < 8)
-			res.add(BaseScene.caselle[this.getPezzoY() + v][this.getPezzoX() + 1]);
-		
-		return res;
-	}
-	
-	@Override
 	public void onMove() {
+		super.onMove();
 		if(this.getPezzoY() == 7 || this.getPezzoY() == 0){
 			EntryPoint.scene.getChildren().add(new PromozioneGUI(this));
 		}

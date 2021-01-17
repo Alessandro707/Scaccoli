@@ -20,7 +20,7 @@ public class Regina extends Pezzo{
 	
 	@Override
 	public ArrayList<Casella> calcCanGo() {
-		ArrayList<Casella> res = this.alfiere();
+		ArrayList<Casella> res = this.alfiere(); // la regina è Torre U Alfiere
 		res.addAll(this.torre());
 		return res;
 	}

@@ -69,7 +69,7 @@ public interface Net {
 			con.setReadTimeout(5000);
 			con.setDoOutput(true);
 			
-			Map<String, String> parameters = new HashMap<>(); // giocatore, xy1, xy2, pezzo
+			Map<String, String> parameters = new HashMap<>(); // giocatore, xy_1, xy_2, pezzo
 			parameters.put("giocatore", Main.giocatore.ordinal() + "");
 			parameters.put("da", s1.toString() + s2);
 			parameters.put("a", d1.toString() + d2);
@@ -114,10 +114,10 @@ public interface Net {
 				if(giocatore != Main.giocatore.ordinal()){
 					Mossa m = new Mossa(PvP.caselle[daY][daX].getPezzo(), Colonna.valueOf(start.charAt(0) + ""),
 							daY, Colonna.valueOf(dest.charAt(0) + ""), aY);
-					PvP.mosse.add(m);
+					BaseScene.mosse.add(m);
 					
 					Runnable runnable = () -> {
-						if(aY < 0){
+						if(aY < 0){ // se è minore di 0 significa che è matto
 							BaseScene.scaccoMatto = true;
 							Text text = new Text("SCACCO MATTACCHIONE");
 							text.setTextAlignment(TextAlignment.CENTER);
@@ -126,12 +126,13 @@ public interface Net {
 							EntryPoint.scene.getChildren().add(text);
 						}
 						else {
-							if (PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo() != null)
-								PvP.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo().mangiato = true;
+							if (BaseScene.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo() != null)
+								BaseScene.caselle[m.getDestY()][m.getDestX().ordinal()].getPezzo().mangiato = true;
 							
-							PvP.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(PvP.caselle[m.getStartY()][m.getStartX().ordinal()].getPezzo());
-							PvP.caselle[m.getStartY()][m.getStartX().ordinal()].setPezzo(null);
-							EntryPoint.scene.close();
+							// sposto i pezzi
+							BaseScene.caselle[m.getDestY()][m.getDestX().ordinal()].setPezzo(PvP.caselle[m.getStartY()][m.getStartX().ordinal()].getPezzo());
+							BaseScene.caselle[m.getStartY()][m.getStartX().ordinal()].setPezzo(null);
+							EntryPoint.scene.close(); // smette di cercare nuove mosse sul database
 							BaseScene.playerTurn = true;
 							BaseScene.calcMinacce();
 						}

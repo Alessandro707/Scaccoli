@@ -9,15 +9,15 @@ import sample.net.Net;
 import sample.scenes.EntryPoint;
 
 public class Main extends Application {
-	public static Giocatore giocatore;
+	public static Giocatore giocatore; // Bianco o nero
 	public static Stage stage;
 	
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		Main.stage = primaryStage;
 		
 		Main.stage.setTitle("Schaccolati");
-		Main.stage.setScene(new Scene(new EntryPoint(), Casella.size * 8.4, Casella.size * 8.4));
+		Main.stage.setScene(new Scene(new EntryPoint(), Casella.size * 8.3, Casella.size * 8.3));
 		Main.stage.show();
 	}
 	
@@ -25,6 +25,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 		
+		// quando chiudo il programma devo chiudere la connessione col database e/o il processo di stockfish
 		Net.resetta();
 		StockfishEngine.close();
 		if(EntryPoint.scene != null)

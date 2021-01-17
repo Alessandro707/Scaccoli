@@ -10,10 +10,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
 import sample.Pezzi.*;
-import sample.enums.Colore;
-import sample.enums.TipoPezzo;
 import sample.scenes.BaseScene;
 import sample.scenes.EntryPoint;
+
+import java.util.Arrays;
 
 public class PromozioneGUI extends VBox { // TODO: quando avviene una promozione devo mandarlo all'altro giocatore
 	

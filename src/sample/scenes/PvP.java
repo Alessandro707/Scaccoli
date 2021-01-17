@@ -13,25 +13,26 @@ public class PvP extends BaseScene {
 	public PvP(){
 		super();
 		
+		// se sono il nero devo controllare se il bianco ha mosso
 		if(Main.giocatore.equals(Giocatore.NERO))
 			timer.start();
 	}
 	
 	@Override
-	public void close(){
+	public void close() { // chiamato quando viene ricevuta la nuova mossa
 		if(timer.isRunning())
 			timer.stop();
 	}
 	
 	@Override
-	public void mouseCallback(Casella casella){
-		if(!BaseScene.playerTurn)
-			return;
+	public void mouseCallback(Casella casella){ // molto simile a PvE.mouseCallback(Casella casella)
+		//if(!BaseScene.playerTurn)
+		//	return;
 		if((Casella.lastCasella == null || Casella.lastCasella.getPezzo() == null) && casella.getPezzo() == null)
 			return;
 		if(Casella.lastCasella == null || Casella.lastCasella.getPezzo() == null) {
-			if(casella.getPezzo().getColore().ordinal() != Main.giocatore.ordinal())
-				return;
+			//if(casella.getPezzo().getColore().ordinal() != Main.giocatore.ordinal())
+			//	return;
 			
 			Casella.lastCasella = casella;
 			
@@ -74,7 +75,7 @@ public class PvP extends BaseScene {
 				BaseScene.playerTurn = true;
 				
 				Net.scriviSuWeb(Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga, casella.getPezzo().getTipoPezzo());
-				timer.start();
+				timer.start(); // avendo mosso attendo la mossa avveraria
 				
 				BaseScene.calcMinacce();
 			}

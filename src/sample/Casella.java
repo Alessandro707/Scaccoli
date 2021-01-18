@@ -7,7 +7,6 @@ import javafx.scene.shape.Rectangle;
 
 import sample.Pezzi.Pezzo;
 import sample.enums.Colonna;
-import sample.enums.Colore;
 import sample.enums.TipoPezzo;
 import sample.forme.Dot;
 import sample.forme.Square;

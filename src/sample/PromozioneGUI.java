@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.geometry.Insets;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -12,8 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import sample.Pezzi.*;
 import sample.scenes.BaseScene;
 import sample.scenes.EntryPoint;
-
-import java.util.Arrays;
 
 public class PromozioneGUI extends VBox { // TODO: quando avviene una promozione devo mandarlo all'altro giocatore
 	

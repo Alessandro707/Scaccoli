@@ -26,13 +26,17 @@ public class PvP extends BaseScene {
 	
 	@Override
 	public void mouseCallback(Casella casella){ // molto simile a PvE.mouseCallback(Casella casella)
-		//if(!BaseScene.playerTurn)
-		//	return;
+		// commentare per muovere anche se non è il proprio turno
+		if(!BaseScene.playerTurn)
+			return;
+		// **********************
 		if((Casella.lastCasella == null || Casella.lastCasella.getPezzo() == null) && casella.getPezzo() == null)
 			return;
 		if(Casella.lastCasella == null || Casella.lastCasella.getPezzo() == null) {
-			//if(casella.getPezzo().getColore().ordinal() != Main.giocatore.ordinal())
-			//	return;
+			// commentare per muovere anche i pezzi avversari
+			if(casella.getPezzo().getColore().ordinal() != Main.giocatore.ordinal())
+				return;
+			// ******************************
 			
 			Casella.lastCasella = casella;
 			
@@ -72,7 +76,7 @@ public class PvP extends BaseScene {
 				Casella.lastCasella.setPezzo(null);
 				casella.getPezzo().onMove();
 				BaseScene.playerTurn = false;
-				BaseScene.playerTurn = true;
+				//BaseScene.playerTurn = true; // decommentare perché sia sempre il proprio turno
 				
 				Net.scriviSuWeb(Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga, casella.getPezzo().getTipoPezzo());
 				timer.start(); // avendo mosso attendo la mossa avveraria

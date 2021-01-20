@@ -41,25 +41,19 @@ public class EntryPoint extends Group {
 		
 		b1.setOnMouseClicked((MouseEvent e) -> {
 			Main.giocatore = Giocatore.BIANCO;
-			if(pveOn && percorsoEngine){
+			if(pveOn && percorsoEngine)
 				EntryPoint.scene = new PvE();
-				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
-			}
-			else {
+			else
 				EntryPoint.scene = new PvP();
-				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
-			}
+			Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
 		});
 		b2.setOnMouseClicked((MouseEvent e) -> {
 			Main.giocatore = Giocatore.NERO;
-			if(pveOn && percorsoEngine){
+			if(pveOn && percorsoEngine)
 				EntryPoint.scene = new PvE();
-				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
-			}
-			else {
+			else
 				EntryPoint.scene = new PvP();
-				Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
-			}
+			Main.stage.setScene(new Scene(EntryPoint.scene, Casella.size * 8.3, Casella.size * 8.3));
 		});
 		
 		HBox box = new HBox();

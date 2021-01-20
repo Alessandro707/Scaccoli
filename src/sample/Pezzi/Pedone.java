@@ -43,6 +43,7 @@ public class Pedone extends Pezzo {
 				res.add(BaseScene.caselle[this.getPezzoY() + 2 * v][this.getPezzoX()]);
 		}
 		
+		
 		if(this.getPezzoX() - 1 >= 0 && BaseScene.caselle[this.getPezzoY() + v][this.getPezzoX() - 1].getPezzo() != null &&
 				!BaseScene.caselle[this.getPezzoY() + v][this.getPezzoX() - 1].getPezzo().getColore().equals(this.getColore()))
 			res.add(BaseScene.caselle[this.getPezzoY() + v][this.getPezzoX() - 1]);
@@ -52,6 +53,23 @@ public class Pedone extends Pezzo {
 			res.add(BaseScene.caselle[this.getPezzoY() + v][this.getPezzoX() + 1]);
 		
 		// TODO: enpassate!1!1!
+		
+		return res;
+	}
+	
+	@Override
+	public ArrayList<Casella> calcMinaccePedone() {
+		ArrayList<Casella> res = new ArrayList<>();
+		
+		int v = -1; // per semplice movimento
+		if(this.getColore().equals(Colore.BIANCO)) {
+			v = 1;
+		}
+		
+		if(this.getPezzoX() > 0)
+			res.add(BaseScene.caselle[this.getPezzoY() + v][this.getPezzoX() - 1]);
+		if(this.getPezzoX() < 7)
+		res.add(BaseScene.caselle[this.getPezzoY() + v][this.getPezzoX() + 1]);
 		
 		return res;
 	}

@@ -132,6 +132,7 @@ public class BaseScene extends StackPane {
 						break;
 					}
 				}
+				
 				if (BaseScene.sottoScacco)
 					continue;
 				for (Casella c : p.getMinacciaPedone()) { // i pedoni minacciano di lato ma non ci possono "andare"

@@ -102,11 +102,11 @@ public interface Net {
 			JSONArray jsonArray =(JSONArray)( new JSONParser().parse(str));
 			for (Object json:jsonArray) {
 				JSONObject jo = (JSONObject) json;
-				String id = (String) jo.get("id");
+				//String id = (String) jo.get("id");
 				int giocatore = Integer.parseInt((String)jo.get("giocatore"));
 				String dest = (String) jo.get("mossaA");
 				String start = (String) jo.get("mossaDa");
-				TipoPezzo pezzo = TipoPezzo.values()[Integer.parseInt((String) jo.get("pezzo"))];
+				//TipoPezzo pezzo = TipoPezzo.values()[Integer.parseInt((String) jo.get("pezzo"))];
 				
 				int daX = Colonna.valueOf(start.charAt(0) + "").ordinal(), daY = Integer.parseInt(start.charAt(1) + "");
 				int aX = Colonna.valueOf(dest.charAt(0) + "").ordinal(), aY = Integer.parseInt(dest.charAt(1) + "");

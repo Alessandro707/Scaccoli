@@ -70,26 +70,4 @@ public class Casella extends StackPane {
 			BaseScene.re = this;
 	}
 	
-	// debug
-	public String infoCasella(){
-		String res = "Minacce pedoniche: \n";
-		
-		for(Pezzo p : BaseScene.pezzi)
-			for(Casella c : p.getMinacciaPedone())
-				if(this.equals(c))
-					res = res.concat("    " + p.getTipoPezzo().toString() + " " + p.getColore().toString() + " " + p.getPezzoX() + "," + p.getPezzoY() + "\n");
-				
-		if(res.length() == "Minacce: \n".length())
-			res = res.concat("------\n");
-		
-		res = res.concat("Can Go: \n");
-		for(Pezzo p : BaseScene.pezzi)
-			for(Casella c : p.getCanGo())
-				if(this.equals(c))
-					res = res.concat("    " + p.getTipoPezzo().toString() + " " + p.getColore().toString() + " " + p.getPezzoX() + "," + p.getPezzoY() + "\n");
-		
-		res = res.concat("------\n");
-		
-		return res;
-	}
 }

@@ -52,8 +52,7 @@ public class PvP extends BaseScene {
 		else {
 			if (Casella.lastCasella.getPezzo().getCanGo().contains(casella) && (casella.getPezzo() == null ||
 						!Casella.lastCasella.getPezzo().getColore().equals(casella.getPezzo().getColore()))) {
-				
-				BaseScene.mosse.add(new Mossa(Casella.lastCasella.getPezzo(), Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga));
+				BaseScene.mosse.add(new Mossa(Casella.lastCasella.getPezzo(), Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga, casella.getPezzo()));
 				
 				for (Casella c : Casella.lastCasella.getPezzo().getCanGo()) {
 					if (c.getPezzo() == null)

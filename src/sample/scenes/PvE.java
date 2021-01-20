@@ -56,8 +56,7 @@ public class PvE extends BaseScene {
 			// cliccata la casella di destinazione verifico che sia una mossa fattibile dal pezzo
 			if (Casella.lastCasella.getPezzo().getCanGo().contains(casella) && (casella.getPezzo() == null ||
 					!Casella.lastCasella.getPezzo().getColore().equals(casella.getPezzo().getColore()))) {
-				
-				BaseScene.mosse.add(new Mossa(Casella.lastCasella.getPezzo(), Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga));
+				BaseScene.mosse.add(new Mossa(Casella.lastCasella.getPezzo(), Casella.lastCasella.colonna, Casella.lastCasella.riga, casella.colonna, casella.riga, casella.getPezzo()));
 				
 				// rimuovo i puntini e i riquadri
 				for (Casella c : Casella.lastCasella.getPezzo().getCanGo()) {

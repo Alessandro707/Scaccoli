@@ -14,8 +14,9 @@ public class Mossa {
 	private final int startY;
 	private final Colonna destX;
 	private final Colonna startX;
+	private Pezzo pezzoMangiato;
 	
-	public Mossa(Pezzo pezzo, Colonna startX, int startY, Colonna destX, int destY){
+	public Mossa(Pezzo pezzo, Colonna startX, int startY, Colonna destX, int destY, Pezzo pezzoMangiato){
 		this.pezzo = pezzo;
 		this.tipoPezzo = pezzo.getTipoPezzo();
 		this.colore = pezzo.getColore();
@@ -23,6 +24,7 @@ public class Mossa {
 		this.startY = startY;
 		this.destX = destX;
 		this.destY = destY;
+		this.pezzoMangiato = pezzoMangiato;
 	}
 	
 	public String toString(){
@@ -66,5 +68,12 @@ public class Mossa {
 	
 	public Colonna getStartX() {
 		return startX;
+	}
+	
+	public Pezzo getPezzoMangiato() { return pezzoMangiato; }
+	
+	public void setPezzoMangiato(Pezzo pezzo) {
+		if(this.tipoPezzo.equals(TipoPezzo.PEDONE))
+			this.pezzoMangiato = pezzo;
 	}
 }

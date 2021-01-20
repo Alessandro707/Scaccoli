@@ -42,7 +42,7 @@ public class Pezzo extends ImageView {
 	private TipoPezzo tipoPezzo;
 	// elenco di caselle dove il pezzo può andare (vuote o con pezzi anche alleati per impedire al re avversario di mangiarle e mettersi sotto scacco)
 	private ArrayList<Casella> canGo = new ArrayList<>();
-	private ArrayList<Casella> minacciaPedone = new ArrayList<>(); // TODO: remove?
+	private ArrayList<Casella> minacciaPedone = new ArrayList<>();
 	public boolean mangiato = false;
 	public boolean mosso = false; // per arrocco
 	

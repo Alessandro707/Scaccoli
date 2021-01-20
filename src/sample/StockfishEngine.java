@@ -105,7 +105,7 @@ public class StockfishEngine {
 					int y1 = Integer.parseInt(mossa[1].charAt(1) + "") - 1;// 1
 					Colonna x2 = Colonna.valueOf(mossa[1].charAt(2) + "");    // a
 					int y2 = Integer.parseInt(mossa[1].charAt(3) + "") - 1;// 2
-					PvE.mosse.add(new Mossa(PvE.caselle[y1][x1.ordinal()].getPezzo(), x1, y1, x2, y2));
+					PvE.mosse.add(new Mossa(PvE.caselle[y1][x1.ordinal()].getPezzo(), x1, y1, x2, y2, PvE.caselle[y2][x2.ordinal()].getPezzo()));
 					StockfishEngine.get().scriviMossa();
 					
 					//sposto i pezzi sulla scaccoliera

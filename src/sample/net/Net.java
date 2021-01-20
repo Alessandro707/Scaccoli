@@ -113,7 +113,7 @@ public interface Net {
 				
 				if(giocatore != Main.giocatore.ordinal()){
 					Mossa m = new Mossa(PvP.caselle[daY][daX].getPezzo(), Colonna.valueOf(start.charAt(0) + ""),
-							daY, Colonna.valueOf(dest.charAt(0) + ""), aY);
+							daY, Colonna.valueOf(dest.charAt(0) + ""), aY, PvP.caselle[aY][aX].getPezzo());
 					BaseScene.mosse.add(m);
 					
 					Runnable runnable = () -> {

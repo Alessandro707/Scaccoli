@@ -13,7 +13,6 @@ import sample.scenes.BaseScene;
 import sample.scenes.EntryPoint;
 
 public class PromozioneGUI extends VBox { // TODO: quando avviene una promozione devo mandarlo all'altro giocatore
-	
 	public PromozioneGUI(@NotNull Pezzo pezzo){
 		this.setBackground(new Background(new BackgroundFill(Paint.valueOf("#ffffffff"), CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setMaxSize(Casella.size * 4, Casella.size * 1.2);
